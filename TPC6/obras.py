@@ -149,7 +149,7 @@ def inversão_estrutural (obras):
 
 import obras 
 myObras = obras.readDataset("obras.csv")
-menu = 1
+opção = 1
 def menu():
     print("""
     ----------------------------------------------------
