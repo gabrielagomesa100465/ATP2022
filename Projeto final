@@ -1,0 +1,82 @@
+import json
+import matplotlib.pyplot as plt
+
+with open("dataset.json", encoding='utf-8') as dataset:
+    populacao = json.load(dataset)
+
+populacao = populacao["pessoas"]
+
+
+#Número de indivíduos na base de dados
+def numPessoas(populacao):
+    return len(populacao)
+print(numPessoas(populacao))
+
+#Distribuição dos indivíduos por profissão
+def distribuição_profissão(populacao):
+    distrib = {}
+    for pessoa in populacao:
+        if pessoa['profissao'] in distrib.keys():
+            distrib[pessoa['profissao']] += 1
+        else:
+            distrib[pessoa['profissao']] = 1
+    return distrib
+print(distribuição_profissão(populacao))
+
+#Distribuição dos indivíduos por desporto
+def distribuição_desporto(populacao):                                        #######################################################
+    distrib = {}                                                           #####VER ESTA DISTRIBUIÇÃO, DESPORTOS É UMA LISTA#####
+    for pessoa in populacao:
+        if pessoa['desportos'] in distrib.keys():
+            distrib[pessoa['desportos']] = distrib[pessoa['desportos']] + 1
+        else:
+            distrib[pessoa['desportos']] = 1
+    return distrib
+
+#Top 10
+def ordenaValores(v):
+    return v[1]
+
+def top10(distrib):
+    valores = list(distrib.items())
+    valores.sort(key = ordenaValores)
+    novaDistrib = dict(valores[-10:])
+    return novaDistrib
+
+#Listar indivíduos de uma determinada religião                        #############################
+def listar_religiao(populacao, religiao):                             #######VER ESTA FUNÇÃO#######
+    listareligiao = []                                                #############################
+    for pessoa in populacao:
+        if pessoa['religiao'] in :
+            listareligiao.append(pessoa)
+    return listareligiao
+
+
+#Gráficos das distribuições
+def plotdistrib(distrib):
+    if distrib == distribuição_profissão(populacao):
+        plt.plot(distrib.keys(), distrib.values())
+        plt.xticks([x for x in range(0, len(distrib.keys()))], distrib.keys(), rotation = 45)
+        plt.title("Distribuição dos indivíduos por profissão")
+        plt.show()
+    elif distrib == distribuição_desporto(populacao):
+        plt.plot(distrib.keys(), distrib.values())
+        plt.xticks([x for x in range(0, len(distrib.keys()))], distrib.keys(), rotation = 45)
+        plt.title("Distribuição dos indivíduos por desporto")
+        plt.show()
+    return
+
+def desenhar_gráficos():
+    print("""
+    --------------------------------------------------
+                    Menu de gráficos
+    --------------------------------------------------
+    Deseja consultar o gráfico de que distribuição? :
+    1- Distribuição dos indivíduos por profissão
+    2- Distribuição dos indivíduos por desporto
+    """)
+    opção = input("Introduza a sua opção: ")
+    if opção == "1" :
+        plotdistrib(distribuição_profissão(populacao))
+    elif opção == "2" :
+        plotdistrib(distribuição_desporto(populacao))
